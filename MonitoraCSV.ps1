@@ -1,17 +1,14 @@
-#####################################################################################################
-# Script para descoberta e retorno das propriedades de CSV em um cluster de Failover.				#
-#																									#
-# Script proposto para uso em processos de descoberta do Zabbix										#
+# Script intended to discover and collect the status of cluster shared volumes in a failover cluster using Zabbix
 #																									#
 # Luiz Fernando - 02/01/2014																		#
 #																									#
-# Espera-se semprAe dois argumentos: args[0] para o nome do disco e args[1] para o tipo de item.	#
-#####################################################################################################
+# It expects two arguments: args[0] is the disk name and[1] is the information you want
 
-# Importa o módulo de Failover para PS
+
+# Import the FailoverCluster module
 Import-Module FailoverClusters
 
-# "total" para espaço total do volume:
+# "total" to the total colume size:
 if ($args[1] -eq "total")
 {
 	$vols = Get-ClusterSharedVolume $args[0] | select -Expand SharedVolumeInfo | select -Expand Partition | ft -auto -hidetableheaders @{ Label = "Size(GB)" ; Expression = { "{0:N2}" -f ($_.Size/1024/1024/1024) }} | out-string
@@ -20,7 +17,7 @@ if ($args[1] -eq "total")
 	Write-Host $vols.Trim()
 }
 
-# "used" para espaço utilizado:
+# "used" to used space:
 elseif ($args[1] -eq "used")
 {
 	$vols = Get-ClusterSharedVolume $args[0] | select -Expand SharedVolumeInfo | select -Expand Partition | ft -auto -hidetableheaders @{ Label= "UsedSpace(GB)" ; Expression = { "{0:N2}" -f ($_.UsedSpace/1024/1024/1024) } } | out-string
@@ -29,7 +26,7 @@ elseif ($args[1] -eq "used")
 	Write-Host $vols.Trim()
 }
 
-# "free" para espaço livre:
+# "free" to free space:
 elseif ($args[1] -eq "free")
 {
 	$vols = Get-ClusterSharedVolume $args[0] | select -Expand SharedVolumeInfo | select -Expand Partition | ft -auto -hidetableheaders @{ Label ="FreeSpace(GB)" ; Expression = { "{0:N2}" -f ($_.FreeSpace/1024/1024/1024) } } | out-string
@@ -38,7 +35,7 @@ elseif ($args[1] -eq "free")
 	Write-Host $vols.Trim()
 }
 
-# "pfree" para porcentagem livre:
+# "pfree" to free space (in %):
 elseif ($args[1] -eq "pfree")
 {
 	$vols = Get-ClusterSharedVolume $args[0] | select -Expand SharedVolumeInfo | select -Expand Partition | ft -auto -hidetableheaders @{ Label = "PercentFree" ; Expression = { "{0:N2}" -f ($_.PercentFree) } } | out-string
@@ -47,13 +44,13 @@ elseif ($args[1] -eq "pfree")
 	Write-Host $vols.Trim()
 }
 
-# No caso de não serem declarados parâmetros válidos, o script serve somente para descoberta de volumes.
+# If there is no declared argument, discover the volumes.
 else
 {
 	$vols = Get-ClusterSharedVolume | select name | ft -hidetableheaders | out-string
 	$vols = $vols.Trim()	
 	
-	# Conta a quantidade de itens do array
+	# Counting the total items on the array
 	$total = ($vols -split '[\n]').length
 	$i = 0
 	
@@ -63,13 +60,13 @@ else
 	
 	foreach ($item in ($vols -split '[\n]'))
 	{
-		# Contador para não imprimir vírgula após o último elemento
+		# Count avoid printing comma after the last value
 		$i++
 		$item = $item.Trim() -replace ",", "."
 		if($item -ne "")
 		{
 			Write-Host -NoNewline "    {""{#VOLNAME}"":""$item""}"						
-			# Tratando a impressão da vírgula
+			# Dealing with the comma
 			If ($i -lt $total){
 				Write-Host ","
 			}
