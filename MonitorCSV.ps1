@@ -54,7 +54,7 @@ else
 	$total = ($vols -split '[\n]').length
 	$i = 0
 	
-	# Início do JSON
+	# Begin JSON
 	Write-Host "{"
 	Write-Host " `"data`":["
 	
