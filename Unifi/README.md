@@ -28,7 +28,7 @@ _**site=default**_
 ./etc/zabbix/unifi.sh
 ```
 
-![Efetuando descoberta](/images/Bash1.PNG)
+![Efetuando descoberta](/Unifi/images/Bash1.PNG)
   
 Veja que o retorno foi uma saída em formato JSON, que é o formato que o Zabbix utiliza para fazer o LLD, que é o processo de descoberta de itens de monitoramento, de forma dinâmica. Entenda mais sobre LLD [aqui](https://www.zabbix.com/documentation/3.0/pt/manual/discovery/low_level_discovery).
 
@@ -41,7 +41,7 @@ Por exemplo, caso queira saber o total de pontos de acesso no site default, exec
   
 A saída será a quantidade total de dispositivos.  
   
-![Coletando valores de site específico](/images/Bash2.PNG)
+![Coletando valores de site específico](/Unifi/images/Bash2.PNG)
   
   
 `5)` Agora vamos editar o arquivo de configuração do Zabbix, adicionando um parâmetro de usuário. Um parâmetro de usuário nada mais é do que uma forma customizada de uma chave de monitoramento. É uma chave que criaremos por conta para fazer um tipo de de coleta que nos interessa.  
@@ -83,16 +83,16 @@ zabbix_get -s SERVIDOR\_UNIFI -p PORTA -k unifi\[default,total\]
 `7)` Finalmente, adicionaremos os itens ao Zabbix. Crie um novo template (ou configure direto em um host, como preferir) e vá em _Regras de Descoberta_ e adicione uma nova regra conforme abaixo:  
   
 
-![Criando regra de descoberta](/images/Zabbix1.PNG)
+![Criando regra de descoberta](/Unifi/images/Zabbix1.PNG)
 
   
 Esta regra faz com que seja gerado o processo de descoberta periodicamente. Para o meu ambiente estipulei que a cada 6 horas é um bom número.  
 Após isto, vamos criar os itens em _Protótipos de Itens:_  
 
-![Visão geral dos protótipos de item](/images/Zabbix2.PNG)
+![Visão geral dos protótipos de item](/Unifi/images/Zabbix2.PNG)
 
   
-![Detalhes de um protótipo de item](/images/Zabbix2.PNG)
+![Detalhes de um protótipo de item](/Unifi/images/Zabbix2.PNG)
 
   
 Veja que agora montamos a chave inteira do Zabbix, usando a macro do site que é gerado na saída JSON. Dessa forma o processo irá criar um item deste para cada site encontrado na regra de descoberta.  
