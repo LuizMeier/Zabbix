@@ -15,7 +15,7 @@ A maioria dos scripts que acabo criando para fazer LLD fazem a descoberta quando
 
 > C:\\caminho\\do\\seu\\script\\MonitorCSV.ps1
 
-![Efetuando descoberta](/images/discover.PNG)
+![Efetuando descoberta](/ClusterSharedVolume/images/discover.PNG)
   
 Acima vemos que o script encontrou somente 1 disco adicionado ao cluster em modo CSV.  
   
@@ -23,7 +23,7 @@ Explore o script para descobrir que ele aceita 4 argumentos: used, free, pfree e
 
 > C:\\caminho\\do\\seu\\script\\MonitorCSV.ps1 "Cluster Disk 11" total
 
-![Exibindo espaço total](/images/total.PNG)
+![Exibindo espaço total](/ClusterSharedVolume/images//total.PNG)
 
 ### 2) Adicionando o script ao Zabbix
 
@@ -31,22 +31,22 @@ Eu disponibilizei um template [aqui](https://github.com/LuizMeier/ClusterSharedV
 
 * a) Primeiro vamos criar a regra de descoberta em si, que consumirá os dados gerados no arquivo JSON. Isto processará periodicamente todos os volumes disponíveis. Caso um novo seja encontrado, os itens serão criado também para este novo item.
 
-![Rregra de descoberta](/images/zbx-discovery.PNG)
+![Rregra de descoberta](/ClusterSharedVolume/images/zbx-discovery.PNG)
   
 
 * b) Agora criaremos os itens. Abaixo segue os detalhes de cada item que criei. O LLD criará novos itens iguais a esse para cada volume que encontrar.
 
-![Protótipo de item](/images/zbx-itemprototype.PNG)
+![Protótipo de item](/ClusterSharedVolume/images//zbx-itemprototype.PNG)
 
-![Protótipo de item](/images/zbx-itemprototype2.PNG)
+![Protótipo de item](/ClusterSharedVolume/images/zbx-itemprototype2.PNG)
 
   
 
 * c) Agora criaremos os protótipos de trigger em seguida gráficos:
 
-![Protótipo de trigger](/images/zbx-triggerprototype.PNG)
+![Protótipo de trigger](/ClusterSharedVolume/images//zbx-triggerprototype.PNG)
 
-![Protótipo de trigger](/images/zbx-graphprototype.PNG)
+![Protótipo de trigger](/ClusterSharedVolume/images//zbx-graphprototype.PNG)
 
 Dessa forma, todos estes elementos serão criados para cada novo disco adicionado de forma dinâmica, sem a necessidade de ter que criá-los manualmente.  
   
