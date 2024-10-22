@@ -2,7 +2,7 @@
 '''
 05/03/2024
 
-Luiz Fernando Mizael Meier
+Luiz Fernando Mizael Meier - 
 
 Adaptação de código para ser utilizado com passagem de parâmetros. O intuito é ser utilizado como script customizado em ferramenta de monitoramento.
 
