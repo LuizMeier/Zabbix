@@ -16,8 +16,8 @@ urlbase=""
 autentica() {
 
     # Credenciais
-    username='User'
-    password='PWD'
+    username=''
+    password=''
     # Monta a url para autenticação
     url="$urlbase/LOGIN"
     # Chamada de autenticação (armazena o retorno no arquivo 'token' e o cookie no arquivo 'cookie'). 
