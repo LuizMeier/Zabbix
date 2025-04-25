@@ -1,6 +1,6 @@
-# Zabbix Scripts Repository
+# Scripts Repository
 
-This repository contains a collection of scripts designed for various monitoring and automation tasks. These scripts are organized into directories based on their respective tools or platforms. The repository is intended to be a centralized location for sharing and managing these scripts.
+This repository contains a collection of scripts designed for various monitoring, automation, and management tasks. These scripts are organized into directories based on their respective tools or platforms. The repository is intended to be a centralized location for sharing and managing these scripts.
 
 ## Directory Structure
 
